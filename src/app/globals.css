@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #F8F5EF;
+  --color-cream-dark: #EFE9DF;
+  --color-terracotta-light: #E8A98A;
+  --color-terracotta: #C4714F;
+  --color-terracotta-dark: #9E4E2E;
+  --color-sage-light: #B2C9AE;
+  --color-sage: #7D9B76;
+  --color-sage-dark: #527A4B;
+  --color-warm-charcoal: #2C2825;
+  --color-warm-gray: #8C8279;
+  --color-warm-border: #EDE8E0;
+  --color-warm-white: #FFFFFF;
+
+  --font-sans: var(--font-inter), sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+
+  --shadow-soft: 0 2px 16px 0 rgba(44,40,37,0.06);
+  --shadow-card: 0 4px 24px 0 rgba(44,40,37,0.08);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-warm-charcoal);
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-cream);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-warm-border);
+    border-radius: 99px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-terracotta);
+  }
+}
+
+@layer components {
+  .card {
+    background-color: var(--color-warm-white);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-soft);
+    padding: 1.5rem;
+  }
+
+  .btn-primary {
+    background-color: var(--color-terracotta);
+    color: white;
+    border-radius: var(--radius-xl);
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-terracotta-dark);
+  }
+
+  .btn-ghost {
+    color: var(--color-warm-gray);
+    border-radius: var(--radius-xl);
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .btn-ghost:hover {
+    background-color: var(--color-cream-dark);
+  }
+
+  .input {
+    width: 100%;
+    background-color: var(--color-cream);
+    border-radius: var(--radius-xl);
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--color-warm-charcoal);
+    border: 1px solid var(--color-warm-border);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .input::placeholder {
+    color: var(--color-warm-gray);
+  }
+
+  .input:focus {
+    border-color: var(--color-terracotta);
+  }
+}
