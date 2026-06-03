@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
+import { AuthProvider } from '@/components/providers/AuthProvider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -24,11 +25,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-<body 
-  suppressHydrationWarning
-  className={`${inter.variable} ${playfair.variable} font-sans bg-cream text-warm-charcoal antialiased`}
->
+      <body
+        suppressHydrationWarning
+        className={`${inter.variable} ${playfair.variable}`}
+        style={{ fontFamily: 'var(--font-inter)', backgroundColor: 'var(--color-cream)', color: 'var(--color-warm-charcoal)' }}
+      >
+        <AuthProvider>
           {children}
+        </AuthProvider>
       </body>
     </html>
   )
