@@ -13,7 +13,12 @@ import {
   Settings,
   LogOut,
 } from 'lucide-react'
-import { useAuth } from '@/components/providers/AuthProvider'
+
+interface User {
+  id: string
+  name: string
+  email: string
+}
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Home' },
@@ -25,16 +30,17 @@ const navItems = [
   { href: '/companion', icon: Sparkles, label: 'Companion' },
 ]
 
-export default function Sidebar() {
+export default function Sidebar({ user }: { user: User | null }) {
   const pathname = usePathname()
   const router = useRouter()
-  const { user } = useAuth()
 
   async function handleLogout() {
     await fetch('/api/auth/logout', { method: 'POST' })
     router.push('/login')
     router.refresh()
   }
+
+  const initial = user?.name?.[0]?.toUpperCase() ?? '?'
 
   return (
     <aside
@@ -121,15 +127,8 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Bottom section */}
-      <div
-        style={{
-          padding: '0 0.75rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.125rem',
-        }}
-      >
+      {/* Bottom */}
+      <div style={{ padding: '0 0.75rem', display: 'flex', flexDirection: 'column', gap: '0.125rem' }}>
         <Link
           href="/settings"
           style={{
@@ -147,15 +146,8 @@ export default function Sidebar() {
           Settings
         </Link>
 
-        <div
-          style={{
-            height: '1px',
-            backgroundColor: 'var(--color-warm-border)',
-            margin: '0.5rem 0.875rem',
-          }}
-        />
+        <div style={{ height: '1px', backgroundColor: 'var(--color-warm-border)', margin: '0.5rem 0.875rem' }} />
 
-        {/* Profile + logout */}
         <div
           style={{
             display: 'flex',
@@ -180,39 +172,39 @@ export default function Sidebar() {
               flexShrink: 0,
             }}
           >
-            C
+            {initial}
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-          <p
-            style={{
-              fontSize: '0.8125rem',
-              fontWeight: 500,
-              color: 'var(--color-warm-charcoal)',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {user?.name ?? '...'}
-          </p>
-          <button
-            onClick={handleLogout}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-              fontSize: '0.75rem',
-              color: 'var(--color-warm-gray)',
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
-            }}
-          >
-            <LogOut size={11} strokeWidth={1.75} />
-            Sign out
-          </button>
-        </div>
+            <p
+              style={{
+                fontSize: '0.8125rem',
+                fontWeight: 500,
+                color: 'var(--color-warm-charcoal)',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {user?.name ?? '...'}
+            </p>
+            <button
+              onClick={handleLogout}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                fontSize: '0.75rem',
+                color: 'var(--color-warm-gray)',
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+              }}
+            >
+              <LogOut size={11} strokeWidth={1.75} />
+              Sign out
+            </button>
+          </div>
         </div>
       </div>
     </aside>

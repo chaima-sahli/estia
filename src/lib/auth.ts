@@ -14,12 +14,15 @@ export function verifyToken(token: string) {
 }
 
 export function getTokenFromRequest(req: NextRequest): string | null {
+  const token = req.cookies.get('token')?.value
+  if (token) return token
+
   const authHeader = req.headers.get('authorization')
   if (authHeader && authHeader.startsWith('Bearer ')) {
     return authHeader.substring(7)
   }
-  const token = req.cookies.get('token')?.value
-  return token || null
+
+  return null
 }
 
 export async function getUserFromRequest(req: NextRequest) {
