@@ -17,7 +17,7 @@ async function getUser() {
 
     return {
       id: user._id.toString(),
-      name: user.name,
+      name: user.name.charAt(0).toUpperCase() + user.name.slice(1),
       email: user.email,
     }
   } catch {
@@ -35,16 +35,20 @@ export default async function DashboardLayout({
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       <Sidebar user={user} />
-      <main
+     <main
         style={{
           marginLeft: '220px',
           flex: 1,
-          padding: '2rem',
+          padding: '2rem 3rem',
           minHeight: '100vh',
           backgroundColor: 'var(--color-cream)',
+          display: 'flex',
+          justifyContent: 'center',
         }}
       >
-        {children}
+        <div style={{ width: '100%', maxWidth: '1000px' }}>
+          {children}
+        </div>
       </main>
     </div>
   )
